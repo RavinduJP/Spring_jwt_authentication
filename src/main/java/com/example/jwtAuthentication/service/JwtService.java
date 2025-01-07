@@ -28,17 +28,21 @@ public class JwtService {
         return Jwts.builder()
                 .subject("Ravindu")
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000*60*20))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 20))
                 .signWith(secretKey)
                 .compact();
     }
 
     public String getUsername(String token) {
-        return Jwts.parser()
-                .verifyWith(secretKey)
-                .build().
-                parseSignedClaims(token).
-                getPayload().
-                getSubject();
+        try {
+            return Jwts.parser()
+                    .verifyWith(secretKey)
+                    .build().
+                    parseSignedClaims(token).
+                    getPayload().
+                    getSubject();
+        } catch (Exception e) {
+            return "Invalid Token";
+        }
     }
 }
