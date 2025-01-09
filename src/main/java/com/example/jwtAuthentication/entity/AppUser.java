@@ -1,9 +1,10 @@
 package com.example.jwtAuthentication.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 //@Getter
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 //@Builder
 
 @Table(name = "user")
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,12 +31,12 @@ public class User {
         this.createdAt = LocalDateTime.now();
     }
 
-    public User() {
-
+    public AppUser() {
     }
 
     // constructor create manually without id
-    public User(String username, String email, String password, String name) {
+
+    public AppUser(String username, String email, String password, String name) {
         this.username = username;
         this.email = email;
         this.password = password;

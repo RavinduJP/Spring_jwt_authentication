@@ -1,6 +1,6 @@
 package com.example.jwtAuthentication.service;
 
-import com.example.jwtAuthentication.entity.User;
+import com.example.jwtAuthentication.entity.AppUser;
 import com.example.jwtAuthentication.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,14 +19,14 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return userRepository.findAll();
     }
 
 
     // use with manual create constructor
-    public User createUser(User userData) {
-        User newUser = new User(
+    public AppUser createUser(AppUser userData) {
+        AppUser newUser = new AppUser(
                 userData.getUsername(),
                 userData.getEmail(),
                 passwordEncoder.encode(userData.getPassword()),

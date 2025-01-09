@@ -1,6 +1,6 @@
 package com.example.jwtAuthentication.controller;
 
-import com.example.jwtAuthentication.entity.User;
+import com.example.jwtAuthentication.entity.AppUser;
 import com.example.jwtAuthentication.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,12 @@ public class AuthController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return authService.getAllUsers();
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return authService.createUser(user);
+    public AppUser createUser(@RequestBody AppUser appUser) {
+        return authService.createUser(appUser);
     }
 }
