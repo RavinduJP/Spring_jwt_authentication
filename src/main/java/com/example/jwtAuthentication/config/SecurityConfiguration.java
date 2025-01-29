@@ -5,8 +5,10 @@ import com.example.jwtAuthentication.repository.UserRepository;
 import com.example.jwtAuthentication.service.AuthUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -35,7 +37,9 @@ public class SecurityConfiguration {
                 .csrf(c -> c.disable())
                 .sessionManagement(s -> s.sessionCreationPolicy(
                         SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(r -> r.requestMatchers("/login")
+                .authorizeHttpRequests(r -> r.requestMatchers(
+                                "/login",
+                                "/api/v1/auth/login")
                         .permitAll()
                         .anyRequest().
                         authenticated()
@@ -63,5 +67,10 @@ public class SecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         return new AuthUserDetailsService(userRepository);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
