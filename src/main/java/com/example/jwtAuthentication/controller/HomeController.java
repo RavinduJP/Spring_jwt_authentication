@@ -31,7 +31,7 @@ public class HomeController {
 
     @PostMapping("/login")
     public String login() {
-        return jwtService.getJwtToken();
+        return null;
     }
 
     @GetMapping("/username")
